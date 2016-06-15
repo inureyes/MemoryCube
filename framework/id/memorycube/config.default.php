@@ -5,9 +5,9 @@
 
 // Define basic signatures.
 define('TEXTCUBE_NAME', 'MemoryCube');
-define('TEXTCUBE_VERSION_ID', '0.1 : Alpha 2');
-define('TEXTCUBE_REVISION', 'root-main-trunk');
-define('TEXTCUBE_CODENAME', 'inquieto');
+define('TEXTCUBE_VERSION_ID', '2.0.0 : Alpha 4');
+define('TEXTCUBE_REVISION', 'memorycube-main-trunk');
+define('TEXTCUBE_CODENAME', 'moment');
 define('TEXTCUBE_VERSION', TEXTCUBE_VERSION_ID . ' : ' . TEXTCUBE_CODENAME);
 define('TEXTCUBE_COPYRIGHT', 'Copyright &copy; 2004-2016. Needlworks / Tatter Network Foundation. All rights reserved. Licensed under the GPL.');
 define('TEXTCUBE_HOMEPAGE', 'http://github.com/inureyes/memorycube/');
@@ -28,10 +28,10 @@ define("XPATH_LIBRARY_ROOT", ROOT . "/library/contrib/phpxpath/");
 define("Auth_OpenID_NO_MATH_SUPPORT", 1);
 define("OPENID_PASSWORD", "-OPENID-");
 
-define('JQUERY_VERSION', '1.11.2.min');
+define('JQUERY_VERSION', '1.11.3.min');
 define('JQUERY_BPOPUP_VERSION', '0.10.0.min');
 define('JQUERY_UI_VERSION', '1.11.2.min');
-define('LODASH_VERSION', '2.4.1.min');
+define('LODASH_VERSION', '3.10.0.min');
 
 // App-specific intialization routine.
 /// Prepare Textcube App storage / cache / attachment storage.
@@ -41,9 +41,12 @@ if (stripos(PHP_OS,'WINNT') !== false || stripos(PHP_OS,'Windows') !== false) {
     $userdir = '';
 } elseif (strpos(PHP_OS,'Darwin') !== false) {
 	$_SERVER['HOME'] = posix_getpwuid(posix_getuid())['dir'];
-	$_SERVER['HOME'] = '/Users/inureyes'; // For developing
     $homedir = $_SERVER['HOME'];
     $userdir = '/Library/Application Support/Memorycube';
+
+    $homedir = '/Library/WebServer/Documents/textcube/memorycube'; // For testing
+    $userdir = '/user';
+
 	if (!file_exists($homedir.$userdir)) {
 		mkdir($homedir.$userdir);
 	}
@@ -60,7 +63,7 @@ foreach($requiredStorages as $symbol=>$dir) {
 }
 foreach($requiredStorages as $symbol=>$dir) {
     if (!file_exists($dir)) {
-		mkdir($dir);
+        mkdir($dir);
         if ($dir == $homedir.$userdir.'/attach') {
             mkdir($homedir.$userdir.'/attach/1');
         }

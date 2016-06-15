@@ -92,7 +92,8 @@ final class Locales extends Singleton {
     public function match($locale, $domain = null) {
         if (is_null($domain)) {
             $domain = $this->domain;
-        }
+		}
+		if (array_key_exists($domain, $this->locale)) {
         if (strcasecmp($locale, $this->locale[$domain]) == 0) {
             return 3;
         } else {
@@ -103,7 +104,8 @@ final class Locales extends Singleton {
                     return 1;
                 }
             }
-        }
+		}
+		}
         return 0;
     }
 

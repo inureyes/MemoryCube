@@ -200,7 +200,6 @@ if ($context->getProperty('blog.useiPhoneUI', true) && ($browserUtil->isMobile()
 require_once(ROOT . '/library/include.' . $uri->uri['interfaceType'] . '.php');
 /// Loading files.
 require_once(ROOT . '/library/include.php');
-
 /// Delayed default skin change. (after including necessary modules.)
 if ($context->getProperty('blog.displaymode', 'desktop') == 'mobile') {
     $context->setProperty('skin.skin', 'lucid');
@@ -298,7 +297,7 @@ if (!defined('NO_INITIALIZAION')) {
      * -------------------------------------------
      * When necessary, loads admin panel skin information.
      */
-    if (in_array($context->getProperty('uri.interfaceType'), array('owner', 'reader')) || defined('__TEXTCUBE_ADMINPANEL__')) {
+    if (in_array($context->getProperty('uri.interfaceType'), array('note', 'owner', 'reader')) || defined('__TEXTCUBE_ADMINPANEL__')) {
         $adminSkinSetting = array();
 
         /// TODO : This is a test routine. we should abstract this.
@@ -327,7 +326,7 @@ if (!defined('NO_INITIALIZAION')) {
  * -------------------------------------------
  * Load and bind specific plugin codes and initialze them.
  */
-if (in_array($context->getProperty('uri.interfaceType'), array('blog', 'owner', 'reader'))) {
+if (in_array($context->getProperty('uri.interfaceType'), array('note', 'blog', 'owner', 'reader'))) {
     require_once(ROOT . '/library/plugins.php');
 }
 
@@ -354,16 +353,18 @@ if ($context->getProperty('uri.interfaceType') == 'blog' && !defined('__TEXTCUBE
         }
     }
 }
-if (in_array($context->getProperty('uri.interfaceType'), array('owner', 'reader'))) {
+if (in_array($context->getProperty('uri.interfaceType'), array('note', 'owner', 'reader'))) {
     requireOwnership();     // Check access control list
     if (!empty($_SESSION['acl'])) {
         $requiredPriv = Aco::getRequiredPrivFromUrl($context->getProperty('suri.directive'));
         if (!empty($requiredPriv) && !Acl::check($requiredPriv)) {
             if (in_array('group.administrators', $requiredPriv)) {
-                header("location:" . $context->getProperty('uri.blog') . "/owner/center/dashboard");
+                //header("location:" . $context->getProperty('uri.blog') . "/owner/center/dashboard");
+                header("location:" . $context->getProperty('uri.blog') . "/note/notes");
                 exit;
             } else {
-                header("location:" . $context->getProperty('uri.blog') . "/owner/entry");
+                //header("location:" . $context->getProperty('uri.blog') . "/owner/entry");
+                header("location:" . $context->getProperty('uri.blog') . "/note/notes");
                 exit;
             }
         }
@@ -376,7 +377,7 @@ if (in_array($context->getProperty('uri.interfaceType'), array('owner', 'reader'
  * Determines cookie prefix.
  */
 if ($context->getProperty('service.cookie_prefix', '') == '') {
-    $context->setProperty('service.cookie_prefix', 'Textcube' . str_replace('.', '', TEXTCUBE_VERSION_ID));
+    $context->setProperty('service.cookie_prefix', 'Memorycube' . str_replace('.', '', TEXTCUBE_VERSION_ID));
 }
 
 // DBMS unbind should work after session close.

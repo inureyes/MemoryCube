@@ -215,7 +215,7 @@ function tinyMCE_editorinit($editor) {
 function tinyMCE_adminheader($target, $mother) {
     $context = Model_Context::getInstance();
     if ($context->getProperty('editor.key') == 'tinyMCE') {
-        if ($context->getProperty('suri.directive') == '/owner/entry/post' || $context->getProperty("suri.directive") == '/owner/entry/edit') {
+        if ($context->getProperty('suri.directive') == '/note/notes/post' || $context->getProperty("suri.directive") == '/note/notes/edit') {
             $target .= "\t<script type=\"text/javascript\" src=\"" . $context->getProperty("plugin.uri", "") . "/tinymce/tinymce.min.js\"></script>\n";
             $target .= "\t<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"" . $context->getProperty("plugin.uri", "") . "/override.css\" />\n";
         }

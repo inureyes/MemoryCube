@@ -8,7 +8,7 @@ final class Dispatcher {
 
     public $uri, $service, $interfacePath;
 
-    public function __construct() {
+	public function __construct() {
 		if (!defined('__TEXTCUBE_CONFIG_FILE__')) {
 			define('__TEXTCUBE_CONFIG_FILE__', ROOT . '/config.php');
 		}
@@ -75,11 +75,6 @@ final class Dispatcher {
         // Workaround for compartibility with fastCGI / Other environment
         $uri['input'] = ltrim(substr($uri['fullpath'],
             strlen($uri['root']) + (defined('__TEXTCUBE_NO_FANCY_URL__') ? 1 : 0)), '/');
-        // Support Tattertools 0.9x legacy address (for upgrade users)
-        if (array_key_exists('pl', $_GET) && strval(intval($_GET['pl'])) == $_GET['pl']) {
-            header("Location: " . $uri['root'] . $_GET['pl']);
-            exit;
-        }
         $part = strtok($uri['input'], '/');
         if (in_array($part, array('resources', 'plugins', 'cache', 'skin', 'attach', 'thumbnail'))) {
             $part = ltrim(rtrim($part == 'thumbnail' ?
@@ -144,25 +139,28 @@ final class Dispatcher {
                     case 'feeder':
                         $uri['interfaceType'] = 'feeder';
                         break;
-                    case 'owner':
+                    case 'note':
                     case 'control':
-                        $uri['interfaceType'] = 'owner';
+                        $uri['interfaceType'] = 'note';
                         break;
                     case 'favicon.ico':
                     case 'index.gif':
                         $uri['interfaceType'] = 'icon';
                         break;
-                    //case 'i':case 'm':  -> overload at preprocessor.php
                     case 'checkup':
                         $uri['interfaceType'] = 'checkup';
                         break;
-                    default:
-                        $uri['interfaceType'] = 'blog';
+					case 'login':
+					case 'logout':
+						$uri['interfaceType'] = 'blog';
+						break;
+   					default:
+                        $uri['interfaceType'] = 'note';
                         break;
                 }
             }
         } else {
-            $uri['interfaceType'] = 'blog';
+            $uri['interfaceType'] = 'note';
         }
         /* Load interface. */
         $interfacePath = null;
@@ -217,6 +215,7 @@ final class Dispatcher {
                             break;
                         case 'login':
                         case 'owner':
+                        case 'note':
                         case 'control':
                             break;
                         case 'comment':
@@ -224,26 +223,28 @@ final class Dispatcher {
                             $pathPart = implode("/", $uri['fragment']);
                             $interfacePath = 'interface/blog/' . $pathPart . '/index.php';
                             break;
-                        default:
-                            if (!empty($uri['fragment'][0]) && strpos($uri['fragment'][0], 'page=') !== 0) {
+						default:
+							break;
+							if (!empty($uri['fragment'][0]) && strpos($uri['fragment'][0], 'page=') !== 0) {
                                 $pathPart = '';
-                                $interfacePath = 'interface/page.php';
+                                $interfacePath = 'interface/index.php';
                             }
                     }
                 }
 
             }
+
             if (empty($interfacePath)) {
                 $interfacePath = 'interface/' . (empty($pathPart) ? '' : $pathPart . '/') . 'index.php';
             }
-            define('PATH', 'interface/' . (empty($pathPart) ? '' : $pathPart . '/'));
-            unset($pathPart);
+			define('PATH', 'interface/' . (empty($pathPart) ? '' : $pathPart . '/'));
+			unset($pathPart);
             if (!file_exists($interfacePath)) {
-                header("HTTP/1.0 404 Not Found");
+                header("HTTP/1.1 404 Not Found");
                 exit;
-            }
+			}
             $uri['interfacePath'] = $this->interfacePath = $interfacePath;
-            $uri['interfaceRoute'] = rtrim($this->interfacePath, 'index.php');
+			$uri['interfaceRoute'] = rtrim($this->interfacePath, 'index.php');
         }
         $this->uri = $uri;
         $this->service = $service;

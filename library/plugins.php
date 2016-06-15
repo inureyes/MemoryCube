@@ -16,13 +16,13 @@ $centerMappings = array();
 $adminMenuMappings = array();
 $adminHandlerMappings = array();
 $configMappings = array();
-$baseConfigPost = $context->getProperty('service.path') . '/owner/setting/plugins/currentSetting';
+$baseConfigPost = $context->getProperty('service.path') . '/note/setting/plugins/currentSetting';
 $configPost = '';
 $configVal = '';
 $typeSchema = null;
 
 $formatterMappings = array('html' => array('name' => _t('HTML'), 'editors' => array('plain' => '')));
-$editorMappings = array('plain' => array('name' => _t('편집기 없음')));
+$editorMappings = array('tinyMCE' => array('name' => _t('tinyMCE')));
 list($currentTextcubeVersion) = explode(' ', TEXTCUBE_VERSION, 2);
 
 if (getBlogId()) {
