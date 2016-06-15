@@ -40,9 +40,10 @@ if (stripos(PHP_OS,'WINNT') !== false || stripos(PHP_OS,'Windows') !== false) {
     $homedir = ROOT;
     $userdir = '';
 } elseif (strpos(PHP_OS,'Darwin') !== false) {
-    $_SERVER['HOME'] = posix_getpwuid(posix_getuid())['dir'];
+	$_SERVER['HOME'] = posix_getpwuid(posix_getuid())['dir'];
+	$_SERVER['HOME'] = '/Users/inureyes'; // For developing
     $homedir = $_SERVER['HOME'];
-    $userdir = '/Library/Application Support/Textcube';
+    $userdir = '/Library/Application Support/Memorycube';
 	if (!file_exists($homedir.$userdir)) {
 		mkdir($homedir.$userdir);
 	}
@@ -65,8 +66,8 @@ foreach($requiredStorages as $symbol=>$dir) {
         }
     }
 }
-if (!file_exists($homedir.$userdir.'/data/textcube.sqlite')) {
-    copy(ROOT.'/resources/setup/textcube.sqlite',$homedir.$userdir.'/data/textcube.sqlite');
+if (!file_exists($homedir.$userdir.'/data/memorycube.sqlite')) {
+    copy(ROOT.'/resources/setup/memorycube.sqlite',$homedir.$userdir.'/data/memorycube.sqlite');
 }
 
 
