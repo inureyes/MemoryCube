@@ -376,11 +376,9 @@ if (getBlogId()) {
                                 unset($formatterinfo);
                                 unset($usedFor);
 							}
-							var_dump(doesHaveOwnership());
-							if (doesHaveOwnership() && $xmls->doesExist('/plugin/binding/editor')) {
+							if (doesHaveOwnership() && $xmls->doesExist('/plugin/binding/editor[lang()]')) {
 								$editorCount = $editorCount + 1;
-								var_dump($xmls->doesExist('/plugin/binding/editor'));
-                                foreach (array($xmls->selectNode('/plugin/binding/editor')) as $editor) {
+                                foreach (array($xmls->selectNode('/plugin/binding/editor[lang()]')) as $editor) {
                                     if (!isset($editor['.attributes']['name'])) {
                                         continue;
                                     }

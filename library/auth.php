@@ -72,17 +72,17 @@ function getUserId() {
 }
 
 function doesHaveOwnership($extra_aco = null) {
-    return Acl::check(array("group.administrators", "group.writers"), $extra_aco);
+	return Acl::check(array("group.administrators", "group.writers"), $extra_aco);
 }
 
 function requireOwnership() {
     if (doesHaveOwnership()) {
         return true;
     }
-    Session::authorize(1, 1, 86400);
     $blogid = getBlogId();
     $userid = Auth::authenticate($blogid, 'user@textcube.app', 'textcube');
-    Session::authorize($blogid, $userid, null);
+	Session::authorize($blogid, $userid, null);
+	Acl::authorize('textcube', $userid);
     return true;
 }
 
