@@ -21,7 +21,6 @@ function tinyMCE_handleconfig($configVal) {
 function tinyMCE_editorinit($editor) {
     $context = Model_Context::getInstance();
     $config = $context->getProperty('plugin.config');
-
     if (empty($config['editormode'])) {
         $config['editormode'] = 'simple';
     }

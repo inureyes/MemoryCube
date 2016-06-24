@@ -66,11 +66,11 @@ if (getBlogId()) {
                 require_once(__TEXTCUBE_CACHE_DIR__ . "/code/plugins-" . getBlogId() . ".php");
                 // TODO : set the editor / formatter count while using plugin php cache.
             } else {
-                foreach ($activePlugins as $plugin) {
+				foreach ($activePlugins as $plugin) {
                     $version = '';
                     $disablePlugin = false;
                     $manifest = @file_get_contents(ROOT . "/plugins/$plugin/index.xml");
-                    if ($manifest && $xmls->open($manifest)) {
+					if ($manifest && $xmls->open($manifest)) {
                         $requiredTattertoolsVersion = $xmls->getValue('/plugin/requirements/tattertools');
                         $requiredTextcubeVersion = $xmls->getValue('/plugin/requirements/textcube');
                         if (is_null($requiredTextcubeVersion) && !is_null($requiredTattertoolsVersion)) {
@@ -93,7 +93,7 @@ if (getBlogId()) {
                             if (version_compare($currentTextcubeVersion, $requiredTextcubeVersion) < 0) {
                                 $disablePlugin = true;
                             }
-                        }
+						}
 
                         if ($disablePlugin == false) {
                             if ($xmls->doesExist('/plugin/version')) {
@@ -375,10 +375,12 @@ if (getBlogId()) {
                                 unset($formatterid);
                                 unset($formatterinfo);
                                 unset($usedFor);
-                            }
-                            if (doesHaveOwnership() && $xmls->doesExist('/plugin/binding/editor[lang()]')) {
-                                $editorCount = $editorCount + 1;
-                                foreach (array($xmls->selectNode('/plugin/binding/editor[lang()]')) as $editor) {
+							}
+							var_dump(doesHaveOwnership());
+							if (doesHaveOwnership() && $xmls->doesExist('/plugin/binding/editor')) {
+								$editorCount = $editorCount + 1;
+								var_dump($xmls->doesExist('/plugin/binding/editor'));
+                                foreach (array($xmls->selectNode('/plugin/binding/editor')) as $editor) {
                                     if (!isset($editor['.attributes']['name'])) {
                                         continue;
                                     }
@@ -399,7 +401,7 @@ if (getBlogId()) {
                                                 $formatterMappings[$usedFor['.attributes']['formatter']]['editors'][$editorid] = @$usedFor['.value'];
                                             }
                                         }
-                                    }
+									}
                                     $editorMappings[$editorid] = $editorinfo;
                                 }
                                 unset($editor);
