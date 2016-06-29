@@ -48,6 +48,7 @@
 /* Entry */
 #body-entry #sub-menu-entry a:before { content: '\f01c';}
 #sub-menu-line a:before { content: '\f0ae';}
+#sub-menu-notes a:before { content: '\f24a';}
 #sub-menu-post a:before { content: '\f040';}
 #sub-menu-page a:before { content: '\f040'; color: #2c335a!important;}
 #sub-menu-notice a:before { content: '\f040'; color: #8ecb54!important;}

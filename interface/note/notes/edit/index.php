@@ -667,11 +667,12 @@ if (defined('__TEXTCUBE_POST__')) {
 										<h3><?php echo _t('분류');?></h3>
 										<dl id="category-line" class="line">
 											<dt><label for="category"><?php echo _t('분류');?></label></dt>
-											<dd>
-												<div class="entrytype-page"><input type="radio" id="type_page" class="radio" name="entrytype" value="-3" onclick="checkCategory('type_page')"<?php echo ($entry['category'] == -3 ? ' checked="checked"' : '');?> /><label for="type_page"><?php echo _t('페이지');?></label></div>
-												<div class="entrytype-notice"><input type="radio" id="type_notice" class="radio" name="entrytype" value="-2" onclick="checkCategory('type_notice')"<?php echo ($entry['category'] == -2 ? ' checked="checked"' : '');?> /><label for="type_notice"><?php echo _t('공지');?></label></div>
-												<div class="entrytype-keyword"><input type="radio" id="type_keyword" class="radio" name="entrytype" value="-1" onclick="checkCategory('type_keyword')"<?php echo ($entry['category'] == -1 ? ' checked="checked"' : '');?> /><label for="type_keyword"><?php echo _t('키워드');?></label></div>
-												<div class="entrytype-template"><input type="radio" id="type_template" class="radio" name="entrytype" value="-4" onclick="checkCategory('type_template')"<?php echo ($entry['category'] == -4 ? ' checked="checked"' : '');?> /><label for="type_template"><?php echo _t('서식');?></label></div>
+												<dd>
+													<div class="entrytype-page"><input type="radio" id="type_page" class="radio" name="entrytype" value="-3" onclick="checkCategory('type_page')"<?php echo ($entry['category'] == -3 ? ' checked="checked"' : '');?> /><label for="type_page"><?php echo _t('페이지');?></label></div>
+													<div class="entrytype-notice"><input type="radio" id="type_notice" class="radio" name="entrytype" value="-2" onclick="checkCategory('type_notice')"<?php echo ($entry['category'] == -2 ? ' checked="checked"' : '');?> /><label for="type_notice"><?php echo _t('공지');?></label></div>
+													<div class="entrytype-keyword"><input type="radio" id="type_keyword" class="radio" name="entrytype" value="-1" onclick="checkCategory('type_keyword')"<?php echo ($entry['category'] == -1 ? ' checked="checked"' : '');?> /><label for="type_keyword"><?php echo _t('키워드');?></label></div>
+													<div class="entrytype-template"><input type="radio" id="type_template" class="radio" name="entrytype" value="-4" onclick="checkCategory('type_template')"<?php echo ($entry['category'] == -4 ? ' checked="checked"' : '');?> /><label for="type_template"><?php echo _t('서식');?></label></div>
+
 												<div class="entrytype-post">
 													<input type="radio" id="type_post" class="radio" name="entrytype" value="0" onclick="checkCategory('type_post')"<?php echo ($entry['category'] >= 0 ? ' checked="checked"' : '');?> /><label for="type_post"><?php echo _t('글');?></label>
 													<select id="category" name="category"<?php if($isKeyword) echo ' disabled="disabled"';?>>
@@ -919,8 +920,6 @@ if (defined('__TEXTCUBE_POST__')) {
 if (isset($_GET['popupEditor'])) {
 ?>
 										<div class="button-box two-button-box">
-											<input type="button" value="<?php echo _t('미리보기');?>" class="preview-button input-button" onclick="entryManager.preview();return false;" />
-											<span class="hidden">|</span>
 											<input type="submit" id="saveButton" value="<?php echo _t('중간 저장');?>" class="save-button input-button" onclick="entryManager.save();return false;" />
 											<span class="hidden">|</span>
 											<input type="submit" id="saveAndReturnButton" value="<?php echo _t('저장 후 돌아가기');?>" class="save-and-return-button input-button" onclick="entryManager.saveAndReturn();return false;" />
@@ -929,8 +928,6 @@ if (isset($_GET['popupEditor'])) {
 } else {
 ?>
 										<div class="button-box three-button-box">
-											<input type="button" value="<?php echo _t('미리보기');?>" class="preview-button input-button" onclick="entryManager.preview();return false;" />
-											<span class="hidden">|</span>
 							    	  	 		<input type="submit" id="saveButton" value="<?php echo _t('중간 저장');?>" class="save-button input-button" onclick="entryManager.save();return false;" />
 											<span class="hidden">|</span>
 							       			<input type="submit" id="saveAndReturnButton" value="<?php echo _t('저장 후 돌아가기');?>" class="save-and-return-button input-button" onclick="entryManager.saveAndReturn();return false;" />

@@ -275,6 +275,7 @@ textarea
 /* main action */
 #main-action-box
 {
+	display                          : none;
 	border                           : 0;
 	position                         : fixed;
 	top                              : 0;
@@ -567,6 +568,7 @@ textarea
 
 #main-menu #menu-textcube
 {
+	display                          : none;
 	width                            : 150px;
 	margin-right                     : 10px;
 	background-image                 : url("./image/mc-homebtn.png") !important;
@@ -1379,7 +1381,7 @@ table.data-inbox tbody tr.empty-list
 	margin                           : 0;
 	position                         : fixed !important;
 	top                              : 0;
-	right                            : 150px;
+	right                            : 25px;
 	width                            : 200px;
 	height                           : 40px;
 	text-align                       : right;

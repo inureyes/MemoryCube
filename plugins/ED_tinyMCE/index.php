@@ -45,7 +45,9 @@ function tinyMCE_editorinit($editor) {
         $config['formatter'] = 'htmlmixed';
         $config['codemirror_jsfiles'] = array('mode/xml/xml.js', 'mode/javascript/javascript.js', 'mode/css/css.js', 'mode/htmlmixed/htmlmixed.js');
     }
-    ob_start();
+	$config['editormode'] = 'simple';
+	$config['width'] = 'full';
+	ob_start();
     ?>
     var editor = new tinymce.Editor('editWindow', {
         // General options
