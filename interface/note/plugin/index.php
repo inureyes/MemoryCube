@@ -18,22 +18,9 @@ if (isset($_GET['visibility'])) {
 	$_POST['visibility'] = 'blog';
 }
 
-switch ($_POST['visibility']) {
-	case 'center':
-		define('__TAB_CENTER__', true);
-		$memberScopes = 'center';
-		break;
-	case 'coverpage':
-		define('__TAB_COVERPAGE__', true);
-		$memberScopes = 'coverpage'; // 임시.
-		break;
-	case 'blog':
-	default:
-		define('__TAB_BLOG__', true);
-		$memberScopes = 'global|blog|sidebar|admin|editor|formatter|none';
-		$_POST['visibility'] = 'blog';
-		break;
-}
+define('__TAB_BLOG__', true);
+$memberScopes = 'global|blog|sidebar|admin|editor|formatter|none';
+$_POST['visibility'] = 'blog';
 
 $tabsClass = array();
 $tabsClass[$_POST['visibility']] = true;
@@ -282,64 +269,22 @@ for ($i=0; $i<count($pluginKeys); $i++) {
 							//]]>
 						</script>
 
-						<ul id="plugin-tabs-box" class="tabs-box">
-							<li<?php echo isset($tabsClass['blog']) ? ' class="selected"' : NULL;?>><a href="<?php echo $context->getProperty('uri.blog');?>/owner/plugin"><?php echo _t('블로그/관리자 기능');?></a></li>
-							<li<?php echo isset($tabsClass['center']) ? ' class="selected"' : NULL;?>><a href="<?php echo $context->getProperty('uri.blog');?>/owner/plugin?visibility=center"><?php echo _t('알림판 위젯');?></a></li>
-							<li<?php echo isset($tabsClass['coverpage']) ? ' class="selected"' : NULL;?>><a href="<?php echo $context->getProperty('uri.blog');?>/owner/plugin?visibility=coverpage"><?php echo _t('블로그 표지 위젯');?></a></li>
-						</ul>
 						<form id="part-plugin-list" class="part" method="post" action="<?php echo parseURL($context->getProperty('uri.blog')."/owner/plugin");?>">
 							<input type="hidden" name="search" value="<?php echo $search;?>" />
-							<h2 class="caption"><span class="main-text"><?php echo _t('설치된 플러그인 목록입니다');?></span></h2>
+							<h2 class="caption"><span class="main-text"><?php echo _t('Installed extensions');?></span></h2>
 
 							<div class="main-explain-box">
-								<p class="explain"><?php echo _t('블로그에 다양한 기능을 더해보세요. 원하는 기능이 든 아이콘을 눌러주면 바로 블로그의 기능이 업그레이드 됩니다.').'<br /> '._t('알림판 위젯 플러그인은 로그인후 보이는 알림판에 위젯을 추가해 줍니다.').' '._t('블로그 표지 위젯 플러그인은 블로그의 첫 화면이나 표지 화면에 출력되는 위젯을 추가해 줍니다.').' '._t('알림판 위젯 플러그인이나 블로그 표지 플러그인은 사이드바와 같이 자유롭게 끌어서 위치를 바꿀 수 있습니다.');?></p>
+								<p class="explain"><?php echo _t('Add extensions to memorycube.');?></p>
 							</div>
 
 							<fieldset id="plugin-display-box">
 								<legend><?php echo _t('표시할 플러그인의 종류를 선택하세요.');?></legend>
 
-								<dl id="scope-line" class="line">
-									<dt><?php echo _t('기능');?></dt>
-									<dd id="scope-line-plugin">
-										<ul>
-<?php
-if (defined('__TAB_BLOG__')) {
-?>
-											<li><input type="checkbox" class="checkbox" id="blog-scope" name="scopeType" value="blog" onclick="changeList(this)"<?php echo in_array('blog', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="blog-scope-label" for="blog-scope"<?php echo in_array('blog', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('블로그 플러그인');?></label></li>
-											<li><input type="checkbox" class="checkbox" id="sidebar-scope" name="scopeType" value="sidebar" onclick="changeList(this)"<?php echo in_array('sidebar', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="sidebar-scope-label" for="sidebar-scope"<?php echo in_array('sidebar', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('사이드바 플러그인');?></label></li>
-											<li><input type="checkbox" class="checkbox" id="admin-scope" name="scopeType" value="admin" onclick="changeList(this)"<?php echo in_array('admin', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="admin-scope-label" for="admin-scope"<?php echo in_array('admin', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('관리자 플러그인');?></label></li>
-											<li><input type="checkbox" class="checkbox" id="common-scope" name="scopeType" value="global" onclick="changeList(this)"<?php echo in_array('global', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="common-scope-label" for="common-scope"<?php echo in_array('global', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('기타 플러그인');?></label></li>
-											<li><input type="checkbox" class="checkbox" id="none-scope" name="scopeType" value="none" onclick="changeList(this)"<?php echo in_array('none', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="none-scope-label" for="none-scope"<?php echo in_array('none', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('분류 없음');?></label></li>
-										</ul>
-									</dd>
-								</dl>
-
-								<dl id="module-line" class="line">
-									<dt><?php echo _t('모듈');?></dt>
-									<dd>
-										<ul>
-											<li><input type="checkbox" class="checkbox" id="editor-scope" name="scopeType" value="editor" onclick="changeList(this)"<?php echo in_array('editor', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="editor-scope-label" for="editor-scope"<?php echo in_array('editor', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('에디터 모듈');?></label></li>
-											<li><input type="checkbox" class="checkbox" id="formatter-scope" name="scopeType" value="formatter" onclick="changeList(this)"<?php echo in_array('formatter', $selectedScopes) ? ' checked="checked"' : '';?> /><label id="formatter-scope-label" for="formatter-scope"<?php echo in_array('formatter', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('포매터 모듈');?></label></li>
-<?php
-} else if (defined('__TAB_CENTER__')) {
-?>
-											<li><input type="checkbox" class="checkbox" id="center-scope" name="scopeType" value="center" onclick="this.checked=true;" checked="checked" /><label id="center-scope-label" for="center-scope"<?php echo in_array('center', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('알림판 위젯');?></label></li>
-<?php
-} else if (defined('__TAB_COVERPAGE__')) {
-?>
-											<li><input type="checkbox" class="checkbox" id="coverpage-scope" name="scopeType" value="coverpage" onclick="this.checked=true;" checked="checked" /><label id="coverpage-scope-label" for="coverpage-scope"<?php echo in_array('coverpage', $selectedScopes) ? ' class="selected"' : '';?>><?php echo _t('블로그 표지 위젯');?></label></li>
-<?php
-}
-?>
-										</ul>
-									</dd>
-								</dl>
-
 								<dl id="status-line" class="line">
-									<dt><?php echo _t('상태');?></dt>
+									<dt><?php echo _t('Activation');?></dt>
 									<dd id="sorting-line-status">
-										<label for="activated-plugin"><input type="checkbox" class="checkbox" id="activated-plugin" name="pluginStatus" value="activated" onclick="changeList(this);return false;"<?php echo in_array('activated', $selectedStatus) ? ' checked="checked"' : '';?> /><?php echo defined('__TAB_ETC__') ? _t('사용중인 플러그인/모듈') : _t('사용중인 플러그인');?></label>
-										<label for="deactivated-plugin"><input type="checkbox" class="checkbox" id="deactivated-plugin" name="pluginStatus" value="deactivated" onclick="changeList(this)"<?php echo in_array('deactivated', $selectedStatus) ? ' checked="checked"' : '';?> /><?php echo defined('__TAB_ETC__') ? _t('사용중이 아닌 플러그인/모듈') : _t('사용하지 않는 플러그인');?></label>
+										<label for="activated-plugin"><input type="checkbox" class="checkbox" id="activated-plugin" name="pluginStatus" value="activated" onclick="changeList(this);return false;"<?php echo in_array('activated', $selectedStatus) ? ' checked="checked"' : '';?> /><?php echo _t('Activated');?></label>
+										<label for="deactivated-plugin"><input type="checkbox" class="checkbox" id="deactivated-plugin" name="pluginStatus" value="deactivated" onclick="changeList(this)"<?php echo in_array('deactivated', $selectedStatus) ? ' checked="checked"' : '';?> /><?php echo _t('Deactivated');?></label>
 									</dd>
 								</dl>
 
@@ -356,21 +301,6 @@ if (defined('__TAB_BLOG__')) {
 									<dd id="viewmode-line-align">
 										<input type="radio" class="radio" id="list-view" name="viewType" value="listview" onclick="changeList(this);return false;"<?php echo $listType == 'listview' ? ' checked="checked"' : '';?> /><label for="list-view"><?php echo _t('리스트 보기');?></label>
 										<input type="radio" class="radio" id="icon-view" name="viewType" value="iconview" onclick="changeList(this);return false;"<?php echo $listType == 'iconview' ? ' checked="checked"' : '';?> /><label for="icon-view"><?php echo _t('아이콘 보기');?></label>
-									</dd>
-								</dl>
-<?php
-if (defined('__TAB_CENTER__') || defined('__TAB_COVERPAGE__')) {
-	$text = defined('__TAB_CENTER__') ? _t('센터로 바로 가기') : _t('표지 설정으로 바로가기');
-	$link = defined('__TAB_CENTER__') ? $context->getProperty('uri.blog') . '/owner/center/dashboard' : $context->getProperty('uri.blog') . '/owner/skin/coverpage';
-} else {
-	$text = _t('사이드바로 바로 가기');
-	$link = $context->getProperty('uri.blog') . '/owner/skin/sidebar';
-}
-?>
-								<dl id="direct-link-line" class="line">
-									<dt><?php echo _t('메인 화면으로 이동');?></dt>
-									<dd>
-										<a class="button" href="<?php echo $link;?>"><?php echo $text;?></a>
 									</dd>
 								</dl>
 							</fieldset>
@@ -413,7 +343,7 @@ for ($i=0; $i<count($pluginKeys); $i++) {
 		echo $context->getProperty('service.path') .
 			(file_exists(ROOT . "/plugins/{$pluginDir}/images/icon_plugin_off.png") ?
 				"/plugins/{$pluginDir}/images/icon_plugin_off.png" :
-				$context->getProperty('panel.skin') . "/image/icon_plugin_off.png");?>" alt="<?php echo _t('꺼짐');?>" title="<?php echo _t('이 플러그인은 현재 텍스트큐브와 호환되지 않습니다. 플러그인의 업데이트가 필요합니다.');?>" />
+				$context->getProperty('panel.skin') . "/image/icon_plugin_off.png");?>" alt="<?php echo _t('꺼짐');?>" title="<?php echo _t('This extension is incompatible and need to be updated.');?>" />
 <?php
 	} else if ($active) {
 ?>
@@ -526,17 +456,6 @@ for ($i=0; $i<count($pluginKeys); $i++) {
 							</div>
 						</form>
 						<hr class="hidden" />
-						<div id="part-plugin-more" class="part">
-							<h2 class="caption"><span class="main-text"><?php echo _t('플러그인을 구하려면');?></span></h2>
-
-<?php
-$linkString = '<a href="http://www.textcube.org/plugin" onclick="window.open(this.href); return false;" title="' . _t('플러그인 업로드 게시판으로 연결합니다.') . '">' . _t('플러그인 업로드 게시판'). '</a>';
-$tempString = _f('텍스트큐브 홈페이지의 %1을 방문하시면 다양한 플러그인을 받을 수 있습니다. 받은 플러그인 파일을 텍스트큐브의 plugin 디렉토리(폴더)로 업로드하면 설치가 완료됩니다. 업로드 후, 이 페이지에서 해당 플러그인을 사용중으로 전환하여 사용을 시작할 수 있습니다.',$linkString);
-?>
-							<div class="main-explain-box">
-								<p class="explain"><?php echo $tempString;?></p>
-							</div>
-						</div>
 <?php
 require ROOT . '/interface/common/note/footer.php';
 ?>
