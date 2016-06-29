@@ -1437,11 +1437,15 @@ table.data-inbox tbody tr.empty-list
 	margin-right                     : 20px !important;
 }
 
-#layout-footer #login-information,
+#layout-footer #login-information
+{
+	display: none;
+}
 #layout-footer #version
 {
 	display                          : inline;
 	float                            : left;
+	padding-left: 20px;
 }
 
 #login-information

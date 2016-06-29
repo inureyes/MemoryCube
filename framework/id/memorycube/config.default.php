@@ -89,6 +89,7 @@ $service['type'] = 'single';
 $service['domain'] = '';
 $service['path'] = '';
 $service['language'] = 'ko';
+date_default_timezone_set('Asia/Seoul');
 $service['timezone'] = 'Asia/Seoul';
 $service['encoding'] = 'UTF-8';
 $service['umask'] = 0;
@@ -106,9 +107,10 @@ $service['flashclipboardpoter'] = true;
 $service['allowBlogVisibilitySetting'] = true;
 $service['disableEolinSuggestion'] = true;
 $service['interface'] = 'simple';    // 'simple' or 'detail'. Default is 'simple' from 2.0
-$service['pagecache'] = true;
+$service['pagecache'] = false;
 $service['codecache'] = false;
 $service['skincache'] = true;
+$service['adminskin'] = 'memorycube';
 $service['externalresources'] = false;
 $service['favicon_daily_traffic'] = 10;
 $service['flashuploader'] = true;
@@ -120,5 +122,17 @@ $service['jqueryURL'] = null;    // You can change this to use external CDNs. (m
 $service['lodashURL'] = null;    // You can change this to use external CDNs. (microsoft / google, etc..)
 $service['useSSL'] = false;
 $service['cookie_prefix'] = '';
-//$service['adminskin'] = 'whitedream';
+
+$service['type'] = 'single';
+$service['domain'] = 'localhost';
+$service['path'] = '';
+
+$database['server'] = 'localhost';
+$database['dbms'] = 'SQLite3';
+$database['database'] = 'memorycube';
+$database['port'] = '3306';
+$database['username'] = 'textcube';
+$database['password'] = 'textcube';
+$database['prefix'] = 'tc_';
+
 ?>

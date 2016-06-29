@@ -101,10 +101,10 @@ if (isset($_GET['tagId']) && !empty($_GET['tagId'])) {
 }
 
 // 페이지당 출력되는 포스트 수.
-$perPage = Setting::getBlogSettingGlobal('rowsPerPage', 10);
-if ( isset($_POST['perPage']) && (in_array($_POST['perPage'], array(10, 15, 20, 25, 30)))) {
+$perPage = Setting::getBlogSettingGlobal('rowsPerPage', 50);
+if ( isset($_POST['perPage']) && (in_array($_POST['perPage'], array(25, 50, 75, 100)))) {
 	if ($_POST['perPage'] != $perPage) {
-		setBlogSetting('rowsPerPage', $_POST['perPage']);
+		Setting::setBlogSettingGlobal('rowsPerPage', $_POST['perPage']);
 		$perPage = $_POST['perPage'];
 	}
 }
@@ -867,7 +867,7 @@ echo str_repeat("\t", 12).Paging::getPagingView($paging, $pagingTemplate, $pagin
 
 											<select name="perPage" onchange="document.getElementById('list-form').page.value=1; document.getElementById('list-form').submit()">
 <?php
-for ($i = 10; $i <= 30; $i += 5) {
+for ($i = 25; $i <= 100; $i += 25) {
 	if ($i == $perPage) {
 ?>
 												<option value="<?php echo $i;?>" selected="selected"><?php echo $i;?></option>

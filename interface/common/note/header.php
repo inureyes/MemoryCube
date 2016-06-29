@@ -182,7 +182,7 @@ if(!empty($adminMenuMappings )) {
 <html lang="<?php echo $context->getProperty('blog.language','ko');?>">
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><?php echo htmlspecialchars($context->getProperty('blog.title'));?> &gt; <?php echo $blogMenu['title'];?></title>
+	<title>Memorycube <?php echo htmlspecialchars($context->getProperty('blog.title'));?> &gt; <?php echo $blogMenu['title'];?></title>
 	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $context->getProperty('service.path').$context->getProperty('panel.skin');?>/basic.css" />
 <?php
 	$browser = Utils_Browser::getInstance();

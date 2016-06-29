@@ -8,9 +8,10 @@
 }
 
 /* table header */
-table.data-inbox tr .date
+table.data-inbox tr .date,
+table.data-inbox tr .status
 {
-	width                            : 60px;
+	display: none;
 }
 
 table.data-inbox tr .starred
@@ -49,6 +50,7 @@ table.data-inbox tbody tr td.ip
 {
 	font-family                      : Verdana, Tahoma, Arial, "Lucida Grande", sans-serif;
 	font-size                        : 0.9em;
+	display: none;
 }
 
 table.data-inbox tbody tr td.site,
@@ -141,7 +143,7 @@ table.data-inbox tbody tr span.temp-icon {
 #allCheckedTop,
 #allCheckedBottom
 {
-	margin-left                     : 7px; 
+	margin-left                     : 7px;
 }
 #part-post-list h2.caption
 {
@@ -151,6 +153,9 @@ table.data-inbox tbody tr span.temp-icon {
 
 
 /* table header */
+#part-post-list table.data-inbox {
+	width: 350px;
+}
 #part-post-list table.data-inbox tr .status
 {
 	width                            : 52px;
@@ -172,6 +177,9 @@ table.data-inbox tbody tr span.temp-icon {
 	padding-right                    : 0;
 }
 
+#part-post-list table.data-inbox thead {
+	display: none;
+}
 #part-post-list table.data-inbox thead tr th.starred,
 #part-post-list table.data-inbox thead tr th.trackback,
 #part-post-list table.data-inbox thead tr th.delete
@@ -200,6 +208,9 @@ table.data-inbox tbody tr span.temp-icon {
 
 /* table body */
 
+#part-post-list table.data-inbox tbody tr {
+	height: 120px;
+}
 #part-post-list table.data-inbox tbody tr td.status
 {
 	padding-right                    : 5px;
@@ -214,7 +225,9 @@ table.data-inbox tbody tr span.temp-icon {
 {
 	color                            : #CCC;
 }
-
+#part-post-list table.data-inbox tr td.category {
+	display: none;
+}
 #part-post-list table.data-inbox tbody tr td.category a.uncategorized,
 #part-post-list table.data-inbox tbody tr.keyword-line td.category a,
 #part-post-list table.data-inbox tbody tr.notice-line td.category a
@@ -336,7 +349,7 @@ table.data-inbox tbody tr span.temp-icon {
 
 #line-content dl dt
 {
-	margin                           : 10px;	
+	margin                           : 10px;
 }
 
 #line-content dd.content
@@ -511,4 +524,8 @@ table.data-inbox tbody tr span.temp-icon {
 	margin-top                       : 100px;
 	text-align                       : center;
 	color                            : #666;
+}
+
+#change-section-bottom {
+	display: none;
 }
