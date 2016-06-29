@@ -7,6 +7,30 @@
 	background-image                 : none !important;
 }
 
+/* Layout */
+#list-edit-container {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-ms-flex-direction: row;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex: 1 1 0.000000001px;
+	-webkit-flex: 1;
+	flex: 1;
+	-webkit-flex-basis: 0.000000001px;
+	flex-basis: 0.000000001px;
+	min-height: 100vh;
+}
+
+#editor-area {
+	-webkit-flex: 1;
+	flex: 1;
+	margin-left: 15px;
+}
 /* table header */
 table.data-inbox tr .date,
 table.data-inbox tr .status

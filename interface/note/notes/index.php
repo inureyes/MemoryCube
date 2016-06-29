@@ -663,6 +663,8 @@ if(isset($_GET['category']) || ($categoryId != -5)) $returnURLpostfix .= (empty(
 if(isset($_POST['visibility'])) $returnURLpostfix .= (empty($returnURLpostfix) ? '?' : '&amp;').'visibility='.$_POST['visibility'];
 ?>
 								<input type="hidden" name="returnURL" value="<?php echo $context->getProperty('uri.blog').'/note/notes'.$returnURLpostfix;?>" />
+								<div id="list-edit-container">
+								<div id="list-area">
 								<table class="data-inbox" cellspacing="0" cellpadding="0">
 									<thead>
 										<tr>
@@ -799,7 +801,9 @@ if (sizeof($entries) == 0) {
 ?>
 									</tbody>
 								</table>
-
+								</div>
+								<iframe src="http://localhost:8800/?/note/notes/edit/1?popupEditor=1" frameBorder="0" width="100%" height="650px" id="editor-area"></iframe>
+							</div>
 								<hr class="hidden" />
 
 								<div class="data-subbox">

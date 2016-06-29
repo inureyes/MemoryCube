@@ -214,7 +214,6 @@ foreach ($pluginListForCSS as $tempPluginDir) {
 unset($pluginListForCSS);
 unset($tempPluginDir);
 ?>
-	<![endif]-->
 	<script type="text/javascript">
 		//<![CDATA[
 			var servicePath = "<?php echo $context->getProperty('service.path');?>";
