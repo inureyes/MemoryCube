@@ -30,16 +30,13 @@ if($urlFragments[0] == 'control' && Acl::check('group.creators')) {
 	$blogMenu['topMenu'] = 'control';
 } else if(Acl::check('group.administrators')) {
 	$blogTopMenuItem = array(
-		array('menu'=>'center','title'=>_t('센터'),'link'=>'/note/center/about'),
-		array('menu'=>'notes','title'=>_t('노트'),'link'=>'/note/notes'),
-		array('menu'=>'plugin','title'=>_t('플러그인'),'link'=>'/note/plugin'),
-		array('menu'=>'setting','title'=>_t('설정'),'link'=>'/note/data')
+		array('menu'=>'notes','title'=>_t('Notes'),'link'=>'/note/notes'),
+		array('menu'=>'setting','title'=>_t('Settings'),'link'=>'/note/data')
 		);
 } else {
 	$blogTopMenuItem = array(
-		array('menu'=>'center','title'=>_t('센터'),'link'=>'/note/center/about'),
-		array('menu'=>'notes','title'=>_t('노트'),'link'=>'/note/notes'),
-		array('menu'=>'setting','title'=>_t('설정'),'link'=>'/note/data')
+		array('menu'=>'notes','title'=>_t('Notes'),'link'=>'/note/notes'),
+		array('menu'=>'setting','title'=>_t('Settings'),'link'=>'/note/data')
 		);
 }
 switch($blogMenu['topMenu']) {
@@ -64,8 +61,9 @@ switch($blogMenu['topMenu']) {
 		$blogMenu['loadCSS'] = array('skin');
 		break;
 	case 'plugin':
-		$blogMenu['title'] = _t('플러그인');
+		$blogMenu['title'] = _t('설정');
 		$blogMenu['loadCSS'] = array('plugin');
+		$blogMenu['topMenu'] = 'setting';
 		break;
 	case 'setting':
 	case 'data':
@@ -99,6 +97,10 @@ if ($blogMenu['topMenu'] == 'center' && $blogMenu['contentMenu'] == 'dashboard')
 } else if (isset($pluginDir)) {
 	array_push($pluginListForCSS, $pluginDir);
 }
+if ($blogMenu['topMenu'] == 'center' && $blogMenu['contentMenu'] == 'about') {
+	$blogMenu['topMenu'] = 'setting';
+}
+
 unset($tempPlugin);
 
 /***** Submenu generation *****/
@@ -114,38 +116,43 @@ if(isset($blogMenu['topMenu'])) {
 	}
 	if(Acl::check('group.editors')) {
 		$blogContentMenuItem['notes'] = array(
-			array('menu'=>'notes','title'=>_t('노트 목록'),'link'=>'/note/notes'),
+			array('menu'=>'notes','title'=>_t('Notes'),'link'=>'/note/notes'),
 			array('menu'=>'divider','title'=> '-','link'=>'/'),
-			array('menu'=>'post','title'=>_t('노트 만들기'),'link'=>'/note/notes/post'),
-			array('menu'=>'keylog','title'=>_t('키워드 만들기'),'link'=>'/note/notes/post?category=-1'),
-			array('menu'=>'template','title'=>_t('서식 만들기'),'link'=>'/note/notes/post?category=-4'),
+			array('menu'=>'post','title'=>_t('Write'),'link'=>'/note/notes/post'),
+			array('menu'=>'template','title'=>_t('Create template'),'link'=>'/note/notes/post?category=-4'),
 			array('menu'=>'divider','title'=> '-','link'=>'/'),
-			array('menu'=>'category','title'=>_t('분류 관리'),'link'=>'/note/notes/category'),
-			array('menu'=>'tag','title'=>_t('태그 관리'),'link'=>'/note/notes/tag')
+			array('menu'=>'category','title'=>_t('Category'),'link'=>'/note/notes/category'),
+			array('menu'=>'tag','title'=>_t('Tag'),'link'=>'/note/notes/tag')
 		);
 	} else {
 		$blogContentMenuItem['notes'] = array(
-			array('menu'=>'notes','title'=>_t('노트 목록'),'link'=>'/note/notes'),
+			array('menu'=>'notes','title'=>_t('Notes'),'link'=>'/note/notes'),
 			array('menu'=>'divider','title'=> '-','link'=>'/'),
-			array('menu'=>'post','title'=>_t('노트 만들기'),'link'=>'/note/notes/post'),
-			array('menu'=>'keylog','title'=>_t('키워드 만들기'),'link'=>'/note/notes/post?category=-1'),
-			array('menu'=>'template','title'=>_t('서식 만들기'),'link'=>'/note/notes/post?category=-4')
+			array('menu'=>'post','title'=>_t('Write'),'link'=>'/note/notes/post'),
+			array('menu'=>'template','title'=>_t('Create template'),'link'=>'/note/notes/post?category=-4')
 		);
 	}
 	if(Acl::check('group.administrators')) {
 		$blogContentMenuItem['plugin'] = array(
-			array('menu'=>'plugin','title'=>_t('플러그인 목록'),'link'=>'/note/plugin')
+			array('menu'=>'plugin','title'=>_t('Extensions'),'link'=>'/note/plugin')
 		);
 		if(Acl::check('group.creators')) array_push($blogContentMenuItem['plugin'], array('menu'=>'tableSetting','title'=>_t('플러그인 데이터 관리'),'link'=>'/note/plugin/tableSetting'));
 	}
 	if(Acl::check('group.administrators')) {
 		$blogContentMenuItem['setting'] = array(
-			array('menu'=>'data','title'=>_t('데이터 관리'),'link'=>'/note/data')
+			array('menu'=>'plugin','title'=>_t('Extensions'),'link'=>'/note/plugin'),
+			array('menu'=>'data','title'=>_t('Data'),'link'=>'/note/data'),
+			array('menu'=>'about','title'=>_t('About'),'link'=>'/note/center/about')
 		);
+		if(Acl::check('group.creators')) array_push($blogContentMenuItem['plugin'], array('menu'=>'tableSetting','title'=>_t('플러그인 데이터 관리'),'link'=>'/note/plugin/tableSetting'));
+		$blogContentMenuItem['plugin'] = $blogContentMenuItem['setting'];
 	} else {
 		$blogContentMenuItem['setting'] = array(
-			array('menu'=>'data','title'=>_t('데이터 관리'),'link'=>'/note/data')
+			array('menu'=>'plugin','title'=>_t('Extensions'),'link'=>'/note/plugin'),
+			array('menu'=>'data','title'=>_t('Data'),'link'=>'/note/data'),
+			array('menu'=>'about','title'=>_t('About'),'link'=>'/note/center/about')
 		);
+		$blogContentMenuItem['plugin'] = $blogContentMenuItem['setting'];
 	}
 }
 
@@ -168,8 +175,6 @@ if(!empty($adminMenuMappings )) {
 		}
 	}
 }
-/** Adds 'about' panel at the last part of center panel. **/
-$blogContentMenuItem['center'] = array_merge($blogContentMenuItem['center'] , array(array('menu'=>'about','title'=>_t('노트큐브는'),'link'=>'/note/center/about')));
 
 /***** Start header output *****/
 ?>
