@@ -41,7 +41,7 @@ if (isset($_POST['category'])) {
 	$categoryId = -5;
 }
 
-// 공개 / 비공개 설정
+// Open / Private 설정
 if (isset($_GET['visibility'])) {
 	$_POST['visibility'] = $_GET['visibility'];
 }
@@ -51,7 +51,7 @@ if (isset($_POST['visibility'])) {
 	if($_POST['visibility']=='public') {
 		$visibility = '>=1';
 		$tabsClass['public'] = true;
-		$visibilityText = _t('공개');
+		$visibilityText = _t('Open');
 	} else if($_POST['visibility']=='protected') {
 		$visibility = '=1';
 		$tabsClass['protected'] = true;
@@ -59,7 +59,7 @@ if (isset($_POST['visibility'])) {
 	} else if($_POST['visibility']=='private') {
 		$visibility = '0';
 		$tabsClass['private'] = true;
-		$visibilityText = _t('비공개');
+		$visibilityText = _t('Private');
 	} else if($_POST['visibility']=='reserved') {
 		$visibility = '<-1';
 		$tabsClass['reserved'] = true;
@@ -67,7 +67,7 @@ if (isset($_POST['visibility'])) {
 	} else if($_POST['visibility']=='template') {
 //		$categoryId = -4;
 		$tabsClass['template'] = true;
-		$visibilityText = _t('서식');
+		$visibilityText = _t('Template');
 	} else if($_POST['visibility']=='starred') {
 		$starred = 2;
 		$tabsClass['starred'] = true;
@@ -313,7 +313,7 @@ printScriptCheckTextcubeVersion();
 														var oElement = document.getElementById('list-form').elements[i];
 														if ((oElement.name == "entry") && oElement.checked) {
 															id = "category_" + oElement.value;
-															if (label == "<?php echo _t('분류 없음');?>") {
+															if (label == "<?php echo _t('Uncategorized');?>") {
 																document.getElementById(id).className = "uncategorized";
 															} else {
 																document.getElementById(id).className = "categorized";
@@ -527,7 +527,7 @@ printScriptCheckTextcubeVersion();
 							<h2 class="caption"><span class="main-text">
 <?php
 	if(isset($tabsClass['template']) && $tabsClass['template'] == true) {
-		echo _t('서식 목록입니다');
+		echo _t('Template 목록입니다');
 	} else if ($categoryId == -1) {
 		echo _f('%1 키워드 목록입니다', $visibilityText);
 	} else if ($categoryId == -2) {
@@ -548,40 +548,40 @@ printScriptCheckTextcubeVersion();
 
 								<ul id="entry-tabs-box" class="tabs-box">
 									<li class="entry-post"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/post<?php echo (isset($_POST['category']) ? '?category='.$_POST['category'] : '')?>"><?php echo _t('새 글 쓰기');?></a></li>
-									<li class="entry-all<?php echo isset($tabsClass['all']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>"><?php echo _t('종류');?></a>
-										<label for="category"><?php echo _t('종류');?></label>
+									<li class="entry-all<?php echo isset($tabsClass['all']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>"><?php echo _t('Category');?></a>
+										<label for="category"><?php echo _t('Category');?></label>
 										<select id="category" name="category" onchange="document.getElementById('category-form-top').page.value=1; document.getElementById('category-form-top').submit()">
-											<option value="-5"<?php echo ($categoryId == -5 ? ' selected="selected"' : '');?>><?php echo _t('모든 노트');?></option>
-											<optgroup class="category" label="<?php echo _t('노트 종류');?>">
-												<option value="-1"<?php echo ($categoryId == -1 ? ' selected="selected"' : '');?>><?php echo _t('키워드');?></option>
-												<option value="-4"<?php echo ($categoryId == -4 ? ' selected="selected"' : '');?>><?php echo _t('서식');?></option>
+											<option value="-5"<?php echo ($categoryId == -5 ? ' selected="selected"' : '');?>><?php echo _t('All notes');?></option>
+											<optgroup class="category" label="<?php echo _t('Kind');?>">
+												<option value="-1"<?php echo ($categoryId == -1 ? ' selected="selected"' : '');?>><?php echo _t('Keyword');?></option>
+												<option value="-4"<?php echo ($categoryId == -4 ? ' selected="selected"' : '');?>><?php echo _t('Template');?></option>
 											</optgroup>
-											<optgroup class="category" label="<?php echo _t('분류');?>">
-												<option value="0"<?php echo ($categoryId == 0 ? ' selected="selected"' : '');?>><?php echo htmlspecialchars(getCategoryNameById($blogid,0) ? getCategoryNameById($blogid,0) : _t('전체'), ENT_QUOTES, "UTF-8");?></option>
+											<optgroup class="category" label="<?php echo _t('Category');?>">
+												<option value="0"<?php echo ($categoryId == 0 ? ' selected="selected"' : '');?>><?php echo htmlspecialchars(getCategoryNameById($blogid,0) ? getCategoryNameById($blogid,0) : _t('All'), ENT_QUOTES, "UTF-8");?></option>
 	<?php
 	foreach (getCategories($blogid) as $category) {
 		if ($category['id'] != 0) {
 	?>
-												<option value="<?php echo $category['id'];?>"<?php echo ($category['id'] == $categoryId ? ' selected="selected"' : '');?>><?php echo ($category['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
+												<option value="<?php echo $category['id'];?>"<?php echo ($category['id'] == $categoryId ? ' selected="selected"' : '');?>><?php echo ($category['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
 	<?php
 		}
 		foreach ($category['children'] as $child) {
 			if ($category['id'] != 0) {
 	?>
-												<option value="<?php echo $child['id'];?>"<?php echo ($child['id'] == $categoryId ? ' selected="selected"' : '');?>>&nbsp;― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
+												<option value="<?php echo $child['id'];?>"<?php echo ($child['id'] == $categoryId ? ' selected="selected"' : '');?>>&nbsp;― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
 	<?php
 			}
 		}
 	}
 	?>
-												<option value="-10"<?php echo ($categoryId == -10 ? ' selected="selected"' : '');?>><?php echo _t('(분류 없음)');?></option>
+												<option value="-10"<?php echo ($categoryId == -10 ? ' selected="selected"' : '');?>><?php echo _t('(Uncategorized)');?></option>
 											</optgroup>
 										</select>
 									</li>
 
 									<li class="entry-starred<?php echo isset($tabsClass['starred']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>&amp;visibility=starred"><?php echo _t('별표');?></a></li>
-									<li class="entry-private<?php echo isset($tabsClass['private']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>&amp;visibility=private"><?php echo _t('비공개');?></a></li>
-									<li class="entry-template<?php echo isset($tabsClass['template']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>&amp;visibility=template"><?php echo _t('서식');?></a></li>
+									<li class="entry-private<?php echo isset($tabsClass['private']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>&amp;visibility=private"><?php echo _t('Private');?></a></li>
+									<li class="entry-template<?php echo isset($tabsClass['template']) ? ' selected' : NULL;?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes?page=1<?php echo $tab['postfix'];?>&amp;visibility=template"><?php echo _t('Template');?></a></li>
 								</ul>
 							</form>
 
@@ -589,7 +589,7 @@ printScriptCheckTextcubeVersion();
 							<div id="change-section-top" class="section">
 								<input type="checkbox" id="allCheckedTop" class="checkbox" onclick="checkAll(this.checked);" />
 								<label for="allCheckedTop"></label>
-								<span class="label"><?php echo _t('선택한 글을');?></span>
+								<span class="label"><?php echo _t('Selected notes');?></span>
 								<select name="commandBoxTop" id="commandBoxTop" onchange="toggleDeleteButton(this, 'top');return false;">
 									<option class="default" selected="selected"><?php echo _t('행동을 지정합니다.');?></option>
 <?php
@@ -601,19 +601,19 @@ if (count($categories) >0) {
 foreach ($categories as $category) {
 	if ($category['id']!= 0) {
 ?>
-										<option class="parent-category" value="category_<?php echo $category['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>"><?php echo ($category['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
+										<option class="parent-category" value="category_<?php echo $category['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>"><?php echo ($category['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
 <?php
 	}
 	foreach ($category['children'] as $child) {
 		if ($category['id']!= 0) {
 ?>
-										<option class="child-category" value="category_<?php echo $child['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>/<?php echo htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?>">― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
+										<option class="child-category" value="category_<?php echo $child['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>/<?php echo htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?>">― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
 <?php
 		}
 	}
 }
 ?>
-										<option class="parent-category" value="category_-10" label="<?php echo _t('분류 없음');?>">(<?php echo _t('분류 없음');?>)</option>
+										<option class="parent-category" value="category_-10" label="<?php echo _t('Uncategorized');?>">(<?php echo _t('Uncategorized');?>)</option>
 									</optgroup>
 <?php
 }
@@ -682,7 +682,7 @@ if(isset($_POST['visibility'])) $returnURLpostfix .= (empty($returnURLpostfix) ?
 if (sizeof($entries) == 0) {
 ?>
         <tr class="empty-list">
-            <td colspan="11"><?php echo _t('글이 없습니다');?></td>
+            <td colspan="11"><?php echo _t('Still empty.');?></td>
         </tr>
 <?php
 } else {
@@ -731,7 +731,7 @@ if (sizeof($entries) == 0) {
 <?php
 	if ($entry['category'] == 0) {
 ?>
-<a id="category_<?php echo $entry['id'];?>" class="uncategorized" href="<?php echo $context->getProperty('uri.blog');?>/note/notes?category=-10"><?php echo _t('분류 없음');?><?php echo ($entry['visibility'] < 0 ? '('._t('예약된 글').')' : '');?></a>
+<a id="category_<?php echo $entry['id'];?>" class="uncategorized" href="<?php echo $context->getProperty('uri.blog');?>/note/notes?category=-10"><?php echo _t('Uncategorized');?><?php echo ($entry['visibility'] < 0 ? '('._t('예약된 글').')' : '');?></a>
 <?php
 	} else if (!empty($entry['categoryLabel'])) {
 ?>
@@ -751,7 +751,7 @@ if (sizeof($entries) == 0) {
 <?php
 	} else if ($entry['category'] == -4) {
 ?>
-												<a id="category_<?php echo $entry['id'];?>" class="template" href="<?php echo $context->getProperty('uri.blog');?>/note/notes?category=-4"><?php echo _t('서식');?><?php echo ($entry['visibility'] < 0 ? '('._t('예약된 글').')' : '');?></a>
+												<a id="category_<?php echo $entry['id'];?>" class="template" href="<?php echo $context->getProperty('uri.blog');?>/note/notes?category=-4"><?php echo _t('Template');?><?php echo ($entry['visibility'] < 0 ? '('._t('예약된 글').')' : '');?></a>
 <?php
 	}
 ?>
@@ -761,32 +761,32 @@ if (sizeof($entries) == 0) {
 <?php
 	if($entry['category'] == -4) {
 ?>
-												<span id="templateInstruction"><?php echo _t('서식');?></span>
+												<span id="templateInstruction"><?php echo _t('Template');?></span>
 <?php
 
 	} else if ($entry['visibility'] == 0) {
 ?>
-												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-on-icon" title="<?php echo _t('현재 비공개 상태입니다.');?>"><span class="text"><?php echo _t('비공개');?></span></span>
+												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-on-icon" title="<?php echo _t('현재 Private 상태입니다.');?>"><span class="text"><?php echo _t('Private');?></span></span>
 												<span id="protectedIcon_<?php echo $entry['id'];?>" class="protected-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=protect" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 1); return false;" title="<?php echo _t('현재 상태를 보호로 전환합니다.');?>"><span class="text"><?php echo _t('보호');?></span></a></span>
-												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=public" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 2); return false;" title="<?php echo _t('현재 상태를 공개로 전환합니다.');?>"><span class="text"><?php echo _t('공개');?></span></a></span>
+												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=public" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 2); return false;" title="<?php echo _t('현재 상태를 Open로 전환합니다.');?>"><span class="text"><?php echo _t('Open');?></span></a></span>
 <?php
 	} else if ($entry['visibility'] == 1) {
 ?>
-												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=private" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 0); return false;" title="<?php echo _t('현재 상태를 비공개로 전환합니다.');?>"><span class="text"><?php echo _t('비공개');?></span></a></span>
+												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=private" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 0); return false;" title="<?php echo _t('현재 상태를 Private로 전환합니다.');?>"><span class="text"><?php echo _t('Private');?></span></a></span>
 												<span id="protectedIcon_<?php echo $entry['id'];?>" class="protected-on-icon" title="<?php echo _t('현재 보호 상태입니다.');?>"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>#status-line" onclick="showProtectSetter('<?php echo $entry['id'];?>'); return false;" title="<?php echo _t('보호 패스워드를 설정합니다.');?>"><span class="text"><?php echo _t('보호설정');?></span></a></span>
-												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=public" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 2); return false;" title="<?php echo _t('현재 상태를 공개로 전환합니다.');?>"><span class="text"><?php echo _t('공개');?></span></a></span>
+												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=public" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 2); return false;" title="<?php echo _t('현재 상태를 Open로 전환합니다.');?>"><span class="text"><?php echo _t('Open');?></span></a></span>
 <?php
 	} else if ($entry['visibility'] == 2 || $entry['visibility'] == 3) {
 ?>
-												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=private" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 0); return false;" title="<?php echo _t('현재 상태를 비공개로 전환합니다.');?>"><span class="text"><?php echo _t('비공개');?></span></a></span>
+												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=private" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 0); return false;" title="<?php echo _t('현재 상태를 Private로 전환합니다.');?>"><span class="text"><?php echo _t('Private');?></span></a></span>
 												<span id="protectedIcon_<?php echo $entry['id'];?>" class="protected-off-icon"><a href="<?php echo $context->getProperty('uri.blog');?>/note/notes/visibility/<?php echo $entry['id'];?>?command=protect" onclick="setEntryVisibility(<?php echo $entry['id'];?>, 1); return false;" title="<?php echo _t('현재 상태를 보호로 전환합니다.');?>"><span class="text"><?php echo _t('보호');?></span></a></span>
-												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-on-icon" title="<?php echo _t('현재 공개 상태입니다.');?>"><span class="text"><?php echo _t('공개');?></span></span>
+												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-on-icon" title="<?php echo _t('현재 Open 상태입니다.');?>"><span class="text"><?php echo _t('Open');?></span></span>
 <?php
 	} else {
 ?>
-												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><span class="text"><?php echo _t('비공개');?></span></span>
+												<span id="privateIcon_<?php echo $entry['id'];?>" class="private-off-icon"><span class="text"><?php echo _t('Private');?></span></span>
 												<span id="protectedIcon_<?php echo $entry['id'];?>" class="protected-off-icon"><span class="text"><?php echo _t('보호');?></span></span>
-												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><span class="text"><?php echo _t('공개');?></span></span>
+												<span id="publicIcon_<?php echo $entry['id'];?>" class="public-off-icon"><span class="text"><?php echo _t('Open');?></span></span>
 <?php
 	}
 ?>
@@ -812,9 +812,9 @@ if (sizeof($entries) == 0) {
 									<div id="change-section-bottom" class="section">
 										<input type="checkbox" id="allCheckedBottom" class="checkbox" onclick="checkAll(this.checked);" />
 										<label for="allCheckedBottom"></label>
-										<span class="label"><?php echo _t('선택한 글을');?></span>
+										<span class="label"><?php echo _t('Selected notes');?></span>
 										<select name="commandBoxBottom" id="commandBoxBottom" onchange="toggleDeleteButton(this, 'bottom');return false;">
-											<option class="default" selected="selected"><?php echo _t('행동을 지정합니다.');?></option>
+											<option class="default" selected="selected"><?php echo _t('Action');?></option>
 <?php
 	$categories = getCategories($blogid);
 	if (count($categories) >0) {
@@ -824,19 +824,19 @@ if (sizeof($entries) == 0) {
 		foreach ($categories as $category) {
 			if ($category['id']!= 0) {
 ?>
-												<option class="parent-category" value="category_<?php echo $category['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>"><?php echo ($category['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
+												<option class="parent-category" value="category_<?php echo $category['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>"><?php echo ($category['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?></option>
 <?php
 			}
 			foreach ($category['children'] as $child) {
 				if ($category['id']!= 0) {
 ?>
-												<option class="child-category" value="category_<?php echo $child['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>/<?php echo htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?>">― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(비공개)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
+												<option class="child-category" value="category_<?php echo $child['id'];?>" label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, "UTF-8");?>/<?php echo htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?>">― <?php echo ($category['visibility'] > 1 && $child['visibility'] > 1 ? '' : _t('(Private)')).htmlspecialchars($child['name'], ENT_QUOTES, "UTF-8");?></option>
 <?php
 				}
 			}
 		}
 ?>
-												<option class="parent-category" value="category_-10" label="<?php echo _t('분류 없음');?>">(<?php echo _t('분류 없음');?>)</option>
+												<option class="parent-category" value="category_-10" label="<?php echo _t('Uncategorized');?>">(<?php echo _t('Uncategorized');?>)</option>
 											</optgroup>
 <?php
 	}
@@ -864,7 +864,7 @@ $pagingItemTemplate = '<a [##_paging_rep_link_##]>[##_paging_rep_link_num_##]</a
 echo str_repeat("\t", 12).Paging::getPagingView($paging, $pagingTemplate, $pagingItemTemplate, false).CRLF;
 ?>
 											</span>
-											<span id="total-count"><?php echo _f('총 %1건', empty($paging['total']) ? "0" : $paging['total']);?></span>
+											<span id="total-count"><?php echo _f('Total %1 notes', empty($paging['total']) ? "0" : $paging['total']);?></span>
 										</div>
 										<div class="page-count">
 											<?php echo Utils_Misc::getArrayValue(explode('%1', _t('한 페이지에 글 %1건 표시')), 0);?>
@@ -884,7 +884,7 @@ for ($i = 25; $i <= 100; $i += 25) {
 }
 ?>
 											</select>
-											<?php echo Utils_Misc::getArrayValue(explode('%1', _t('한 페이지에 글 %1건 표시')), 1).CRLF;?>
+											<?php echo Utils_Misc::getArrayValue(explode('%1', _t('Display %1 notes for page')), 1).CRLF;?>
 										</div>
 									</div>
 								</div>
