@@ -81,7 +81,7 @@ function tinyMCE_editorinit($editor) {
             "table contextmenu directionality charmap textcolor",
             "codemirror"
         ],
-        toolbar1: "tcsave print | bold italic underline strikethrough | styleselect formatselect fontselect fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote hr tcmoreless",
+        toolbar1: "tcsave | bold italic underline strikethrough | formatselect fontselect fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote",
         toolbar2: "undo redo | tcattach image media charmap | hr link unlink anchor | table | removeformat | tcsourcecodeedit code visualblocks",
     <?php
     } else {

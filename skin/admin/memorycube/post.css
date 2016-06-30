@@ -23,7 +23,7 @@
 	flex: 1;
 	-webkit-flex-basis: 0.000000001px;
 	flex-basis: 0.000000001px;
-	min-height: 100vh;
+	height: calc(100vh - 300px);
 }
 
 #editor-area {
@@ -550,6 +550,10 @@ table.data-inbox tbody tr span.temp-icon {
 	color                            : #666;
 }
 
-#change-section-bottom {
+#change-section-bottom,
+#page-section,
+.two-button-box,
+.three-button-box
+{
 	display: none;
 }

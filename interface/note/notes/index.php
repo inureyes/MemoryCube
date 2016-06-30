@@ -619,21 +619,21 @@ foreach ($categories as $category) {
 }
 ?>
 									<optgroup class="category" label="<?php echo _t('아래의 글 종류로 변경합니다.');?>">
-										<option class="parent-category" value="category_-1" label="<?php echo _t('키워드');?>"><?php echo _t('키워드');?></option>
+										<option class="parent-category" value="category_-1" label="<?php echo _t('Keyword');?>"><?php echo _t('Keyword');?></option>
 									</optgroup>
-									<optgroup class="delete" label="<?php echo _t('삭제합니다.');?>">
-										<option value="delete"><?php echo _t('삭제합니다.');?></option>
+									<optgroup class="delete" label="<?php echo _t('Delete.');?>">
+										<option value="delete"><?php echo _t('Delete.');?></option>
 									</optgroup>
 								</select>
-								<input type="button" id="apply-button-top" class="apply-button input-button" value="<?php echo _t('적용');?>" onclick="processBatch(document.getElementById('commandBoxTop'));" />
+								<input type="button" id="apply-button-top" class="apply-button input-button" value="<?php echo _t('Apply');?>" onclick="processBatch(document.getElementById('commandBoxTop'));" />
 
 <?php
 if(Acl::check('group.administrators')) {
 	if (isset($teamblog_users) && count($teamblog_users) > 1) {
 ?>
-								<?php echo _t('또는');?>
+								<?php echo _t('or');?>
 								<select name="author-to-entry" id="author-to-entry">
-									<option value=""><?=_t('글 작성자를 변경합니다.')?></option>
+									<option value=""><?=_t('Change author.')?></option>
 <?php
 		foreach($teamblog_users as $teamblog_user) {
 			$tmpstr = '';
@@ -802,7 +802,7 @@ if (sizeof($entries) == 0) {
 									</tbody>
 								</table>
 								</div>
-								<iframe src="http://localhost:8800/?/note/notes/edit/1?popupEditor=1" frameBorder="0" width="100%" height="650px" id="editor-area"></iframe>
+								<iframe src="http://localhost:8800/?/note/notes/edit/1?popupEditor=1" style="height:calc(100vh - 200px);" frameBorder="0" width="100%" height="650px" id="editor-area"></iframe>
 							</div>
 								<hr class="hidden" />
 
