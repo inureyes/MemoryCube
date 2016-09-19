@@ -5,7 +5,7 @@
 
 // Define basic signatures.
 define('TEXTCUBE_NAME', 'Textcube');
-define('TEXTCUBE_VERSION_ID', '2.0.0 : Beta 1');
+define('TEXTCUBE_VERSION_ID', '2.0.0 : Beta 2');
 define('TEXTCUBE_REVISION', 'root-main-trunk');
 define('TEXTCUBE_CODENAME', 'inquieto');
 define('TEXTCUBE_VERSION', TEXTCUBE_VERSION_ID . ' : ' . TEXTCUBE_CODENAME);
@@ -78,5 +78,5 @@ $service['jqueryURL'] = null;    // You can change this to use external CDNs. (m
 $service['lodashURL'] = null;    // You can change this to use external CDNs. (microsoft / google, etc..)
 $service['useSSL'] = false;
 $service['cookie_prefix'] = '';
-//$service['adminskin'] = 'whitedream';
+$service['adminskin'] = 'amino';
 ?>
