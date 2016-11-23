@@ -524,7 +524,7 @@ if (isset($_GET['popupEditor'])) {
 										/// If draft timer is empty, set draft timer.
 										/// If timer runs, set the delay to the timer.
 										if (self.timer == null)
-											self.timer = window.setTimeout(self.saveDraft, 5000);
+											self.timer = window.setTimeout(self.saveDraft, 3000);
 										else
 											self.delay = true;
 									}

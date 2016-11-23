@@ -519,7 +519,9 @@ printScriptCheckTextcubeVersion();
 										objTR.className = objTR.className.replace('active', 'inactive');
 									}
 								}
-
+								function openNote(url) {
+									document.getElementById('editor-area').src = url+'?popupEditor=1';
+								}
 							//]]>
 						</script>
 
@@ -722,9 +724,9 @@ if (sizeof($entries) == 0) {
 <?php
 	$editmode = 'notes';
 	$entryModifyLink = $entry['id'];
-	$contentLength = 75-Utils_Unicode::lengthAsEm(htmlspecialchars($entry['title'], ENT_QUOTES, "UTF-8"));
+	$contentLength = 150-Utils_Unicode::lengthAsEm(htmlspecialchars($entry['title'], ENT_QUOTES, "UTF-8"));
 ?>
-												<a href="<?php echo $context->getProperty('uri.blog');?>/note/<?php echo $editmode;?>/edit/<?php echo $entryModifyLink;?>" onclick="document.getElementById('list-form').action='<?php echo $context->getProperty('uri.blog');?>/note/<?php echo $editmode;?>/edit/<?php echo $entryModifyLink;?>'<?php echo ($entry['draft'] ? ("+(confirm('" . _t('임시 저장본을 보시겠습니까?') . "') ? '?draft' : '')") : '');?>; document.getElementById('list-form').submit(); return false;"><?php echo htmlspecialchars($entry['title'], ENT_QUOTES, "UTF-8");?></a>
+												<a href="#" onclick="openNote('<?php echo $context->getProperty('uri.blog');?>/note/<?php echo $editmode;?>/edit/<?php echo $entryModifyLink;?>');"><?php echo htmlspecialchars($entry['title'], ENT_QUOTES, "UTF-8");?></a>
 												<span class="description"><?php echo (($contentLength > 0) ? Utils_Unicode::lessenAsEm(removeAllTags(strip_tags($entry['content'])),$contentLength) : '');?></span>
 											</td>
 											<td class="category">
@@ -802,7 +804,7 @@ if (sizeof($entries) == 0) {
 									</tbody>
 								</table>
 								</div>
-								<iframe src="http://localhost:8800/?/note/notes/edit/1?popupEditor=1" style="height:calc(100vh - 200px);" frameBorder="0" width="100%" height="650px" id="editor-area"></iframe>
+								<iframe src="<?php echo $context->getProperty('uri.blog');?>/note/notes/edit/1?popupEditor=1" style="height:calc(100vh - 200px);" frameBorder="0" width="100%"  id="editor-area"></iframe>
 							</div>
 								<hr class="hidden" />
 
