@@ -12,7 +12,9 @@
 	border:0!important;
 	background:#fff!important;
 }
-
+.mce-panel {
+	border: 0!important;
+}
 .popup-editor .mce-toolbar-grp {
 	top:45px;
 	left:3px;
